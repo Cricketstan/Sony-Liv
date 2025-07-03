@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Fullscreen IPTV</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Clappr IPTV Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background: black;
       height: 100%;
-      width: 100%;
-      overflow: hidden;
+      background: black;
     }
-    iframe {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
+    #player {
       width: 100vw;
       height: 100vh;
-      border: none;
     }
   </style>
 </head>
 <body>
-  <iframe
-    id="contentFrame"
-    sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
-    allowfullscreen
-    allow="encrypted-media"
-    src="http://ee0c5e74.akadatel.com/iptv/QRDWGTBMDHSDGK/19146/index.m3u8">
-  </iframe>
+  <div id="player"></div>
+
+  <script>
+    var player = new Clappr.Player({
+      source: "http://ee0c5e74.akadatel.com/iptv/QRDWGTBMDHSDGK/19146/index.m3u8",
+      parentId: "#player",
+      autoPlay: true,
+      mute: false,
+      height: "100%",
+      width: "100%",
+      poster: "", // optional poster image
+    });
+  </script>
 </body>
 </html>
