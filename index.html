@@ -111,7 +111,7 @@
     <div class="shaka-controls-container" shaka-controls></div>
   </div>  <script>
     document.addEventListener('DOMContentLoaded', async () => {
-      const manifestUri = 'https://jiotvmblive.cdn.jio.com/bpk-tv/Ten_1_MOB/WDVLive/index.mpd';
+      const manifestUri = 'https://jiotvmblive.cdn.jio.com/bpk-tv/Ten_2_MOB/WDVLive/index.mpd';
       const video = document.getElementById('video');
       const overlayImage = document.getElementById('overlay-image');
       const container = document.getElementById('video-container');
@@ -127,21 +127,21 @@
           }
         }
       });
-// Optimized request filter
+ // Optimized request filter
   player.getNetworkingEngine().registerRequestFilter((type, request) => {
     request.headers['Referer'] = 'https://www.jiotv.com/';
     
      
     request.headers['User-Agent'] = "plaYtv/7.1.5 (Linux;Android 13) ExoPlayerLib/2.11.6 ";
         
-        request.headers['Cookie'] = "__hdnea__=st=1751368909~exp=1751455309~acl=/*~hmac=6eda3a1be1321e0fe379cd227736ebc94c95b1e329f6faea2976dd60c9747f44";
+        request.headers['Cookie'] = "__hdnea__=st=1751628125~exp=1751714525~acl=/*~hmac=a659cecb2d62de4ff86cc611539cb6935707ad54538f2e6d069db42f7ba0e79c";
         
     // Add hdnea token to manifest and segment URLs if needed
     if ((type === shaka.net.NetworkingEngine.RequestType.MANIFEST ||
          type === shaka.net.NetworkingEngine.RequestType.SEGMENT) && 
         request.uris[0].indexOf('__hdnea__=') === -1) {
             const separator = request.uris[0].includes('?') ? '&' : '?';
-      request.uris[0] += separator + '__hdnea__=st=1751368909~exp=1751455309~acl=/*~hmac=6eda3a1be1321e0fe379cd227736ebc94c95b1e329f6faea2976dd60c9747f44';
+      request.uris[0] += separator + '__hdnea__=st=1751628125~exp=1751714525~acl=/*~hmac=a659cecb2d62de4ff86cc611539cb6935707ad54538f2e6d069db42f7ba0e79c';
           }
   });
 
