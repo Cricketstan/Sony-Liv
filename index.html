@@ -127,24 +127,23 @@
           }
         }
       });
- // Optimized request filter
+  // Optimized request filter
   player.getNetworkingEngine().registerRequestFilter((type, request) => {
     request.headers['Referer'] = 'https://www.jiotv.com/';
     
      
     request.headers['User-Agent'] = "plaYtv/7.1.5 (Linux;Android 13) ExoPlayerLib/2.11.6 ";
         
-        request.headers['Cookie'] = "__hdnea__=st=1751628125~exp=1751714525~acl=/*~hmac=a659cecb2d62de4ff86cc611539cb6935707ad54538f2e6d069db42f7ba0e79c";
+        request.headers['Cookie'] = "__hdnea__=st=1752060185~exp=1752146585~acl=/*~hmac=1754fec97fee08d42a807afdcfcca68e81887d7450bef22772c3aef9df9827dd";
         
     // Add hdnea token to manifest and segment URLs if needed
     if ((type === shaka.net.NetworkingEngine.RequestType.MANIFEST ||
          type === shaka.net.NetworkingEngine.RequestType.SEGMENT) && 
         request.uris[0].indexOf('__hdnea__=') === -1) {
             const separator = request.uris[0].includes('?') ? '&' : '?';
-      request.uris[0] += separator + '__hdnea__=st=1751628125~exp=1751714525~acl=/*~hmac=a659cecb2d62de4ff86cc611539cb6935707ad54538f2e6d069db42f7ba0e79c';
+      request.uris[0] += separator + '__hdnea__=st=1752060185~exp=1752146585~acl=/*~hmac=1754fec97fee08d42a807afdcfcca68e81887d7450bef22772c3aef9df9827dd';
           }
   });
-
 
       ui.configure({
         controlPanelElements: [
