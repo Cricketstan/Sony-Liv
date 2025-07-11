@@ -1,11 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Allrounder</title>
-    <link rel="icon" href="https://www.jiotv.com/favicon.ico" />
 <link rel="stylesheet" href="https://cxh.pages.dev/style.css">
+    <link rel="icon" href="https://www.jiotv.com/favicon.ico" />
     <style>
         body {
             margin: 0;
@@ -51,7 +52,7 @@ jwplayer.key = 'XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo';
     const origOpen = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function(method, url) {
         if (url && !url.includes("__hdnea__")) {
-            url += (url.includes('?') ? '&' : '?') + "__hdnea__=st=1752146533~exp=1752232933~acl=/*~hmac=77864d43700554e72b3d846487c2ba84d2a1993a4c590ca01676f6cd7d711276";
+            url += (url.includes('?') ? '&' : '?') + "__hdnea__=st=1752272743~exp=1752359143~acl=/*~hmac=5e6684466ad62354f947bac92a1865137ea39178ce0c833deca819aff74c6f05";
         }
         return origOpen.apply(this, arguments);
     };
@@ -59,13 +60,13 @@ jwplayer.key = 'XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo';
 
 jwplayer("player").setup({
     playlist: [{
-        title: "Sony Ten 2",
-        image: "https://jiotvimages.cdn.jio.com/dare_images/images/Ten_2.png",
-        file: "https://jiotvmblive.cdn.jio.com/bpk-tv/Ten_2_MOB/WDVLive/index.mpd?__hdnea__=st=1752146533~exp=1752232933~acl=/*~hmac=77864d43700554e72b3d846487c2ba84d2a1993a4c590ca01676f6cd7d711276",
+        title: "Star Sports 1",
+        image: "https://jiotvimages.cdn.jio.com/dare_images/images/Star_Sports_1.png",
+        file: "https://jiotvmblive.cdn.jio.com/bpk-tv/Star_Sports_1_BTS/output/index.mpd?__hdnea__=st=1752272743~exp=1752359143~acl=/*~hmac=5e6684466ad62354f947bac92a1865137ea39178ce0c833deca819aff74c6f05",
         drm: {
             clearkey: {
-                keyId: "671ce7c8ccc95e0a95cba0d12831d12e",
-                key: "175d284c9647b6feb379e7c1650a4f82",
+                keyId: "df20894ec30954d3b28097c138f4cfda",
+                key: "ff9b6292b1cddbd11a046029cb314634",
                 robustness: {
                     video: "SW_SECURE_DECODE",
                     audio: "SW_SECURE_DECODE"
