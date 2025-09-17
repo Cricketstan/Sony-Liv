@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Allrounder/title>
+  <title>Fox Cricket</title>
 
-
+  <!-- Plyr CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
 
   <style>
@@ -14,22 +13,22 @@
       margin: 0;
       background: #000;
       display: flex;
-      justify-content: center;  
-      align-items: center;     
+      justify-content: center;
+      align-items: center;
       height: 100vh;
       width: 100vw;
     }
 
     .video-container {
       background: black;
-      max-width: 100%;   
-      max-height: 100%;  
+      max-width: 100%;
+      max-height: 100%;
     }
 
     video {
       display: block;
-      width: auto;   
-      height: auto;  
+      width: auto;
+      height: auto;
       max-width: 100%;
       max-height: 100%;
     }
@@ -41,36 +40,54 @@
     <video id="player" controls playsinline></video>
   </div>
 
-  
+  <!-- HLS.js -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
-  
+  <!-- Plyr JS -->
   <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.min.js"></script>
 
   <script>
     const streamURL = "https://media.onestream.studio/content/hls/live/live_4139402_6zjrbyf6x/hls.m3u8";
+    const fallbackURL = "https://github.com/Cricketstan/video/raw/main/New%20Project%2010%20%5B345119C%5D.mp4";
     const video = document.getElementById("player");
+
+    function playFallback() {
+      video.src = fallbackURL;
+      video.load();
+      video.play().catch(() => {});
+    }
 
     if (Hls.isSupported()) {
       const hls = new Hls({
         xhrSetup: function (xhr) {
-          
           xhr.setRequestHeader("Ortmp", "south-asia-mumbai-1");
           xhr.setRequestHeader("X-Origin-Host", "south-asia-mumbai-1");
           xhr.setRequestHeader("vKey", "live_4139402_6zjrbyf6x?auth=p_auth_4139402_754stsirp");
           xhr.setRequestHeader("Referer", "https://app.onestream.live/multicast");
         }
       });
+
       hls.loadSource(streamURL);
       hls.attachMedia(video);
+
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         video.play().catch(() => {});
       });
+
+      // If HLS fails, use fallback
+      hls.on(Hls.Events.ERROR, function (event, data) {
+        console.warn("HLS error:", data);
+        playFallback();
+      });
+
     } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = streamURL;
-      video.play().catch(() => {});
+      video.play().catch(() => {}).catch(() => playFallback());
+    } else {
+      // Fallback for browsers with no HLS support
+      playFallback();
     }
 
-    
+    // Initialize Plyr
     const player = new Plyr(video);
   </script>
 </body>
