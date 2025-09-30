@@ -1,53 +1,154 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>h</title>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="https://cdn.jsdelivr.net/npm/shaka-player@latest/dist/shaka-player.ui.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shaka-player@latest/dist/controls.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-    }
-    iframe {
-      border: none;
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-    /* Hide counter completely */
-    .hidden-counter {
-      display: none;
-    }
-    /* Hide the new counter */
-    #sfcu1yjd9b81kpbqxtrgac32z7q2wgambsp {
-      display: none;
-    }
+    html, body { margin: 0; padding: 0; background: #000; height: 100%; }
+    #video-container { width: 100%; height: 100%; position: relative; }
+    video { width: 100%; height: 100%; background: #000; }#overlay-image {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 5;
+}
+
+.shaka-controls-container {
+  z-index: 10 !important; /* Make sure controls are on top */
+}
+
+.shaka-play-button {
+  z-index: 15 !important;
+}
+
+/* PREMIUM MENU STYLES */
+.shaka-settings-menu {
+  background: rgba(30, 30, 30, 0.6) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255,255,255,0.2);
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  max-width: 220px;
+  animation: fadeIn 0.25s ease;
+}
+
+.shaka-settings-menu button {
+  display: block;
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin: 4px 0;
+  border: 2px solid rgba(255,255,255,0.35);
+  font-size: 13px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.shaka-settings-menu button::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(0,198,255,0.12), rgba(0,114,255,0.12));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 8px;
+  z-index: 0;
+}
+
+.shaka-settings-menu button:hover::before,
+.shaka-settings-menu button:focus::before {
+  opacity: 1;
+}
+
+.shaka-settings-menu button:hover,
+.shaka-settings-menu button:focus {
+  border-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+  color: #fff;
+}
+#overlay-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 5;
+}
+
+.shaka-settings-menu button[aria-checked="true"] {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #fff;
+  border-color: #fff;
+  box-shadow: 0 0 12px rgba(0, 198, 255, 0.7);
+}
+
+.shaka-settings-menu button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
   </style>
 </head>
 <body>
-  <!-- Visitor counter (hidden) -->
-  <img class="hidden-counter" 
-       src="https://visit-counter.vercel.app/counter.png?page=allrounder.com&s=40&c=00ff00&bg=00000000&no=10&ff=digi&tb=&ta=" 
-       alt="visitor counter">
+  <div id="video-container">
+    <video id="video" class="shaka-video" autoplay></video>
+    <img id="overlay-image" src="https://i.ibb.co/ZpGdyYpV/1200x600wa.png" alt="willowsports-hrb">
+    <div class="shaka-controls-container" shaka-controls></div>
+  </div>  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const manifestUri = 'https://allroundersuiiiterimaakichutt.onrender.com/https://live-d-01-icc-we.akamaized.net/variant/v1blackout/vcg-01-d/DASH_DASH/Live/channel(vcg-01-ch-hd-02)/hdntl=exp=1759251773~acl=%2Fvariant%2Fv1blackout%2Fvcg-01-d%2F*~data=hdntl~hmac=613c3689ca186c03efb6b04fcf083f365915a02d2e6f8c4c681c82b272904398/manifest.mpd';
+      const video = document.getElementById('video');
+      const overlayImage = document.getElementById('overlay-image');
+      const container = document.getElementById('video-container');
 
-  <!-- New hidden counter (added as requested) -->
-  <div id="sfcu1yjd9b81kpbqxtrgac32z7q2wgambsp" style="display: none;"></div>
-  <script type="text/javascript" src="https://counter1.optistats.ovh/private/counter.js?c=u1yjd9b81kpbqxtrgac32z7q2wgambsp&down=async" async></script>
-  <noscript>
-    <a href="https://www.freecounterstat.com" title="website counter" style="display: none;">
-      <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=u1yjd9b81kpbqxtrgac32z7q2wgambsp" border="0" title="website counter" alt="website counter" style="display: none;">
-    </a>
-  </noscript>
+      const player = new shaka.Player(video);
+      const ui = new shaka.ui.Overlay(player, container, video);
+      const controls = ui.getControls();
 
-  <!-- Main iframe -->
-  <iframe src="https://cricketstan.github.io/Fox-Cricket-/" 
-          loading="lazy"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen; geolocation; web-share; speaker-selection; screen-wake-lock; idle-detection" 
-          allowfullscreen>
-  </iframe>
-</body>
+      player.configure({
+        drm: {
+          clearKeys: {
+            'ae7076b647133606b704d33e4cef5134': '810251515584cf71216d9a2d1ebf04bb'
+          }
+        }
+      });
+
+      ui.configure({
+        controlPanelElements: [
+          'play_pause', 'rewind', 'fast_forward', 'time_and_duration',
+          'spacer', 'mute', 'volume', 'captions', 'quality', 'playback_rate', 
+          'cast', 'loop', 'fullscreen'
+        ],
+        enableQualitySelection: true
+      });
+
+      player.addEventListener('error', (e) => console.error('Error code', e.detail.code, e.detail));
+
+      try {
+        await player.load(manifestUri);
+        console.log('The video has now been loaded!');
+      } catch (e) {
+        console.error('Error loading video', e);
+      }
+
+      video.addEventListener('playing', () => {
+        overlayImage.remove();
+      });
+    });
+  </script></body>
 </html>
