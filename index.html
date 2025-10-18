@@ -1,5 +1,5 @@
 <!DOCTYPE html>  
-<html>  
+<html lang="en">  
 <head>  
   <meta charset="UTF-8">  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
@@ -7,7 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.ui.min.js" crossorigin="anonymous"></script>  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/controls.min.css" crossorigin="anonymous">  
   <style>  
-   * { margin: 0; padding: 0; box-sizing: border-box; }  
+    * { margin: 0; padding: 0; box-sizing: border-box; }  
     html, body {  
       background: #000;  
       height: 100vh;  
@@ -27,6 +27,7 @@
       background: #000;  
       object-fit: contain;  
     }  
+    /* Hide default spinner completely */  
     .shaka-spinner-container,  
     .shaka-spinner,  
     .shaka-spinner-svg {  
@@ -74,31 +75,26 @@
         }  
       });  
   
-      // ✅ Your DRM Key + MPD URL  
-      let drmConfig = {  
-        clearKeys: {  
-          "ae7076b647133606b704d33e4cef5134": "810251515584cf71216d9a2d1ebf04bb"  
-        }  
+      // ✅ Updated DRM and manifest configuration through Render proxy  
+      const manifestUri = "https://allrounderliveroxy.onrender.com/https://live-d-01-icc-we.akamaized.net/variant/v1blackout/vcg-01-d/DASH_DASH/Live/channel(vcg-01-ch-hd-09)/manifest.mpd?hdnts=st=1760777557~exp=1760777597~acl=/variant/v1blackout/vcg-01-d/*~hmac=e8fecc63fce53f747744d56f7544d102abaebdc60c39be31acf1f8da518ff0dd&hdcore=2.11.3";  
+  
+      const clearkey = {  
+        "ae7076b647133606b704d33e4cef5134": "810251515584cf71216d9a2d1ebf04bb"  
       };  
   
-      let streamUrl = "https://allrounderliveroxy.onrender.com/https://live-d-01-icc-we.akamaized.net/variant/v1blackout/vcg-01-d/DASH_DASH/Live/channel(vcg-01-ch-hd-02)/hdntl=exp=1760720411~acl=%2fvariant%2fv1blackout%2fvcg-01-d%2f*~data=hdntl~hmac=f597e1b26a0e101a8dd2d75db5b8d4822cf22d31e6574de50fb0feb6a344c3d9/manifest.mpd";  
-  
       player.configure({  
-        drm: drmConfig,  
+        drm: { clearKeys: clearkey },  
         streaming: {  
           lowLatencyMode: true,  
-          bufferingGoal: 15,  
-          rebufferingGoal: 2,  
+          rebufferingGoal: 1,  
+          bufferingGoal: 3,  
           bufferBehind: 15,  
           retryParameters: {  
             timeout: 10000,  
             maxAttempts: 5,  
             baseDelay: 300,  
             backoffFactor: 1.2  
-          },  
-          segmentRequestTimeout: 8000,  
-          segmentPrefetchLimit: 2,  
-          useNativeHlsOnSafari: true  
+          }  
         },  
         manifest: {  
           retryParameters: {  
@@ -113,10 +109,10 @@
       });  
   
       try {  
-        await player.load(streamUrl);  
-        console.log("Stream loaded successfully");  
+        await player.load(manifestUri);  
+        console.log("✅ Stream loaded successfully");  
       } catch (error) {  
-        console.error('Load error:', error);  
+        console.error('❌ Load error:', error);  
       }  
     });  
   </script>  
